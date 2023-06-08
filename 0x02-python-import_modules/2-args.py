@@ -2,12 +2,18 @@
 import sys
 
 if __name__ == "__main__":
+    Str = "{:d} argument"
     count = len(sys.argv) - 1
     if count == 0:
-        print("0 arguements.")
+        Str += 's.'
     elif count == 1:
-        print("1 arguement.")
+        Str += ':'
     else:
-        print("{} arguements:".format(count))
-    for p in range(count):
-        print("{}:{}".format(p + 1, sys.argv[p + 1]))
+        Str += 's:'
+    print(Str.format(count))
+
+    p = 0
+    for arg in sys.argv:
+        if p != 0:
+            print("{:d}: {:s}".format(p, arg))
+        p += 1
