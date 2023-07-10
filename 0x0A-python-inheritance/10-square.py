@@ -1,9 +1,8 @@
 #!/usr/bin/python3
+"""Definition of a square"""
+
 
 Rectangle = __import__("9-rectangle").Rectangle
-
-
-"""Definition of a Square"""
 
 
 class Square(Rectangle):
