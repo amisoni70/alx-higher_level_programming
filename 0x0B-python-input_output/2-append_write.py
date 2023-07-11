@@ -1,4 +1,4 @@
-#!/sur/bin/python3
+#!/usr/bin/python3
 
 """Function that appends a string at the end of a text file"""
 
