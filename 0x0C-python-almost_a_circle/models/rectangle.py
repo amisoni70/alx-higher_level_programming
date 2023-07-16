@@ -119,8 +119,13 @@ class Rectangle(Base):
         """prints in stdout the Rectangle instance with the
         character #"""
 
+        if self.__y > 0:
+            print()
+            self.__y = 0
         for p in range(self.__height):
             for k in range(self.__width):
+                if self.__y == k:
+                    print(" " * self.__x, end="")
                 print("#", end="")
             print()
 
