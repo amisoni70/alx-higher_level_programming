@@ -136,7 +136,7 @@ class Rectangle(Base):
                 format(self.id, self.__x, self.__y, self.__width,
                        self.__height))
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """updating the rectangle
 
         Args:
@@ -163,4 +163,20 @@ class Rectangle(Base):
                     self.x = arg
                 elif a == 4:
                     self.y = arg
-                a += 1
+                a = a + 1
+
+        elif kwargs and len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key == "id":
+                    if value is None:
+                        self.__init__(self.width, self.height, self.x, self.y)
+                    else:
+                        self.id = value
+                elif key == "width":
+                    self.width = value
+                elif key == "height":
+                    self.height = value
+                elif key == "x":
+                    self.x = value
+                elif key == "y":
+                    self.y = value
