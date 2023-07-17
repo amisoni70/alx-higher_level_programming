@@ -3,6 +3,8 @@
 """Definition of a class named Base. This class will be the “base” of all other
 classes in this project."""
 import json
+import os.path
+import csv
 
 
 class Base:
@@ -87,3 +89,71 @@ class Base:
                 object_created.append(cls.create(**el))
 
         return object_created
+
+    @classmethod
+    def load_from_file(cls):
+        """Returns a list of instances.
+        Args:
+            cls (any): class.
+        Returns:
+            list: list of instances.
+        """
+        filename = "{}.json".format(cls.__name__)
+
+        if os.path.exists(filename) is False:
+            return []
+
+        with open(filename, 'r') as f:
+            list_str = f.read()
+
+        list_cls = cls.from_json_string(list_str)
+        list_ins = []
+
+        for index in range(len(list_cls)):
+            list_ins.append(cls.create(**list_cls[index]))
+
+        return list_ins
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Serializes a list of rectangles or squares in csv.
+
+        Args:
+            cls (any): class.
+            list_objs (list): objects.
+        """
+        filename = cls.__name__ + ".csv"
+        with open(filename, 'w', newline="") as f:
+            writer = csv.writer(f)
+            if cls.__name__ == "Rectangle":
+                for i in list_objs:
+                    writer.writerow([i.id, i.width, i.height, i.x, i.y])
+            elif cls.__name__ == "Square":
+                for i in list_objs:
+                    writer.writerow([i.id, i.size, i.x, i.y])
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """deserializes a list of rectangles or squares in csv.
+
+        Args:
+            cls (any): class.
+        """
+        filename = cls.__name__ + ".csv"
+        my_obj = []
+        try:
+            with open(filename, 'r') as f:
+                csv_reader = csv.reader(f)
+                for elm in csv_reader:
+                    if cls.__name__ == "Rectangle":
+                        dictionary = {"id": int(elm[0]), "width": int(elm[1]),
+                                      "height": int(elm[2]), "x": int(elm[3]),
+                                      "y": int(elm[4])}
+                    elif cls.__name__ == "Square":
+                        dictionary = {"id": int(elm[0]), "size": int(elm[1]),
+                                      "x": int(elm[2]), "y": int(elm[3])}
+                    obj = cls.create(**dictionary)
+                    my_obj.append(obj)
+        except(Exception):
+            pass
+        return(my_obj)
