@@ -56,8 +56,8 @@ class Base:
 
         list_dicts = []
 
-        if not list_objs:
-            pass
+        if list_objs is None:
+            return []
         else:
             for p in range(len(list_objs)):
                 list_dicts.append(list_objs[p].to_dictionary())
