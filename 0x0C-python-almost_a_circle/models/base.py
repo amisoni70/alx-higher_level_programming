@@ -56,9 +56,7 @@ class Base:
 
         list_dicts = []
 
-        if list_objs is None:
-            return []
-        else:
+        if list_objs is not None:
             for p in range(len(list_objs)):
                 list_dicts.append(list_objs[p].to_dictionary())
 
@@ -66,3 +64,26 @@ class Base:
 
         with open(filename, 'w') as f:
             f.write(lists)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """create a new object from dictionary"""
+        if cls.__name__ == "Rectangle":
+            new = cls(10, 10)
+        elif cls.__name__ == "Square":
+            new = cls(10, 10)
+        new.update(**dictionary)
+        return new
+
+    @classmethod
+    def load_from_file(cls):
+        """load from file"""
+        filename = cls.__name__ + ".json"
+        object_created = []
+        with open(filename, 'r') as f:
+            file_string = f.read().replace('\n', '')
+            data = cls.from_json_string(file_string)
+            for el in data:
+                object_created.append(cls.create(**el))
+
+        return object_created
