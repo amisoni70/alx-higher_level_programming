@@ -5,6 +5,7 @@ classes in this project."""
 import json
 import os.path
 import csv
+import turtle
 
 
 class Base:
@@ -157,3 +158,44 @@ class Base:
         except(Exception):
             pass
         return(my_obj)
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """Draws Rectangles and Squares using turtle
+
+        Args:
+        list_rectangles- a list of rectangle objects to draw
+        list_squares - a list of square objects to draw
+        """
+        ttl = turtle.Turtle()
+        ttl.screen.bgcolor("#F5DEB3")
+        ttl.pensize("4")
+        ttl.shape("turtle")
+
+        ttl.color("000000")
+        for i in list_rectangles:
+            ttl.showturtle()
+            ttl.up()
+            ttl.goto(i.x, i.y)
+            ttl.down()
+            for i in range(2):
+                ttl.forward(i.width)
+                ttl.left(90)
+                ttl.forward(i.height)
+                ttl.left(90)
+            ttl.hideturtle()
+
+        ttl.color("8B008B")
+        for j in list_squares:
+            ttl.showturtle()
+            ttl.up()
+            ttl.goto(j.x, j.y)
+            ttl.down()
+            for j in range(2):
+                ttl.forward(j.width)
+                ttl.left(120)
+                ttl.forward(j.height)
+                ttl.left(120)
+            ttl.hideturtle()
+
+        turtle.exitonclick()
