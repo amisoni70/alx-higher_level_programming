@@ -1,5 +1,5 @@
 #!/usr/bin/node
-// script that prints an integer 
+// script that prints an integer
 
 if (isNaN(process.argv[2])) {
   console.log('Not a Number');
