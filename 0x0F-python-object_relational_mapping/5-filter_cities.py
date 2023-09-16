@@ -16,8 +16,10 @@ if __name__ == "__main__":
              WHERE states.name = %s"
     cur = conn.cursor()
     cur.execute(query, (argv[4], ))
+    cities = []
     query_rows = cur.fetchall()
     for row in query_rows:
-        print(row)
+        cities.append(row[0])
+    print(", ".join(cities))
     cur.close()
     conn.close()
